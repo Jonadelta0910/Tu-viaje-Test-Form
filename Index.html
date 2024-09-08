@@ -30,21 +30,25 @@
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxKhu7ixQg9UpfaUbU8BqIqzE9hYnTtoCyrP2uiPwSoonLR6Wg9MJMknhFlwUHN4Q56Ag/exec';
-        const form = document.getElementById('contact-form');
-        const status = document.getElementById('status');
+const form = document.getElementById('contact-form');
+const status = document.getElementById('status');
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    status.textContent = 'Mensaje enviado correctamente.';
-                    form.reset();
-                })
-                .catch(error => {
-                    status.textContent = 'Hubo un error al enviar el mensaje.';
-                });
-        });
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Esta línea se agregó para evitar problemas de CORS
+    })
+    .then(response => {
+        status.textContent = 'Mensaje enviado correctamente.';
+        form.reset();
+    })
+    .catch(error => {
+        status.textContent = 'Hubo un error al enviar el mensaje.';
+    });
+});
     </script>
     
 </body>
