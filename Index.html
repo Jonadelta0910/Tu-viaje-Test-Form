@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>INFORMACIÓN DE CONTACTO</h2>
+            <p>info.contact@correo.com</p>
+            <p>+1 (585) 902-8531</p>
+        </div>
+
+        <div class="contact-form">
+            <h2>Envía tu Mensaje</h2>
+            <form id="contact-form">
+                <input type="text" id="nombre" placeholder="Nombres" required>
+                <input type="text" id="telefono" placeholder="Teléfono / Celular" required>
+                <input type="email" id="correo" placeholder="Correo Electrónico" required>
+                <textarea id="mensaje" placeholder="Mensaje" required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+            <p id="status"></p>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxKhu7ixQg9UpfaUbU8BqIqzE9hYnTtoCyrP2uiPwSoonLR6Wg9MJMknhFlwUHN4Q56Ag/exec';
+        const form = document.getElementById('contact-form');
+        const status = document.getElementById('status');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    status.textContent = 'Mensaje enviado correctamente.';
+                    form.reset();
+                })
+                .catch(error => {
+                    status.textContent = 'Hubo un error al enviar el mensaje.';
+                });
+        });
+    </script>
+    
+</body>
+</html>
